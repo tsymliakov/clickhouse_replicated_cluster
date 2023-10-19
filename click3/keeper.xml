@@ -1,0 +1,72 @@
+<clickhouse>
+        <listen_host>0.0.0.0</listen_host>
+        <keeper_server>
+                <tcp_port>9181</tcp_port>
+                <server_id>3</server_id>
+                <log_storage_path>/var/lib/clickhouse/coordination/log</log_storage_path>
+                <snapshot_storage_path>/var/lib/clickhouse/coordination/snapshots</snapshot_storage_path>
+ 
+                <coordination_settings>
+                        <operation_timeout_ms>10000</operation_timeout_ms>
+                        <session_timeout_ms>30000</session_timeout_ms>
+                        <raft_logs_level>warning</raft_logs_level>
+                </coordination_settings>
+ 
+                <raft_configuration>
+                        <server>
+                                <id>1</id>
+                                <hostname>click1.clickcompose_default</hostname>
+                                <port>9010</port>
+                        </server>
+                        <server>
+                                <id>2</id>
+                                <hostname>click2.clickcompose_default</hostname>
+                                <port>9010</port>
+                        </server>
+                        <server>
+                                <id>3</id>
+                                <hostname>click3.clickcompose_default</hostname>
+                                <port>9010</port>
+                        </server>
+                </raft_configuration>
+        </keeper_server>
+
+        <zookeeper>
+                <node>
+                        <host>click1</host>
+                        <port>9181</port>
+                </node>
+                <node>
+                        <host>click2</host>
+                        <port>9181</port>
+                </node>
+                <node>
+                        <host>click3</host>
+                        <port>9181</port>
+                </node>
+        </zookeeper>
+
+        <remote_servers>
+                <logging>
+                        <shard>
+                                <replica>
+                                        <host>click1</host>
+                                        <port>9000</port>
+                                </replica>
+                                <replica>
+                                        <host>click2</host>
+                                        <port>9000</port>
+                                </replica>
+                                <replica>
+                                        <host>click3</host>
+                                        <port>9000</port>
+                                </replica>
+                        </shard>
+                </logging>
+        </remote_servers>
+
+        <macros>
+                <shard>standart_shard</shard>
+                <replica>replica_3</replica>
+        </macros>
+</clickhouse>

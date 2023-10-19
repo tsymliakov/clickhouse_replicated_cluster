@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  clickhouse1:
+    build: click1/
+    container_name: click1
+    ports:
+      - "8121:8123"
+      - "9001:9181"
+  clickhouse2:
+    build: click2/
+    container_name: click2
+    ports:
+      - "8122:8123"
+      - "9002:9181"
+  clickhouse3:
+    build: click3/
+    container_name: click3
+    ports:
+      - "8123:8123"
+      - "9003:9181"
